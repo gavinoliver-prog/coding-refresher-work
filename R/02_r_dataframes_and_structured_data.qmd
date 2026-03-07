@@ -1,0 +1,243 @@
+---
+title: "Notebook 2 — Data Frames and Structured Data in R"
+format: html
+editor: visual
+---
+
+# Goal
+
+Learn how to work with structured biological datasets in R using **data frames**.
+This notebook introduces filtering, summarizing, and basic manipulation of tabular data.
+
+---
+
+## Section 1 — Creating Data Frames
+
+Data frames are the core structure for tabular biological data in R.
+
+```{r}
+mutations <- data.frame(
+  patient = c("P1", "P2", "P3", "P4", "P5"),
+  gene = c("TP53", "KRAS", "TP53", "BRAF", "KRAS"),
+  mutation = c("R273H", "G12D", "R175H", "V600E", "G12V")
+)
+
+mutations
+```
+
+### Exercises
+
+1. Print the data frame.
+2. Print only the first three rows.
+
+---
+
+## Section 2 — Accessing Columns
+
+Columns can be accessed using `$` or indexing.
+
+```{r}
+mutations$gene
+mutations[["mutation"]]
+```
+
+### Exercises
+
+3. Print the patient column.
+4. Print both the gene and mutation columns.
+
+---
+
+## Section 3 — Row Subsetting
+
+We can filter rows using logical conditions.
+
+```{r}
+mutations[mutations$gene == "KRAS", ]
+```
+
+### Exercises
+
+5. Extract rows where gene is `"TP53"`.
+6. Extract rows where gene is `"BRAF"`.
+
+---
+
+## Section 4 — Logical Conditions
+
+Multiple conditions can be combined.
+
+```{r}
+mutations[mutations$gene == "KRAS" | mutations$gene == "TP53", ]
+```
+
+### Exercises
+
+7. Extract rows where gene is KRAS or BRAF.
+8. Extract rows where patient is P1 or P2.
+
+---
+
+## Section 5 — Basic Summaries
+
+R has simple built‑in functions for summarizing categorical data.
+
+```{r}
+table(mutations$gene)
+```
+
+### Exercises
+
+9. Count mutations per gene.
+10. Count mutations per patient.
+
+---
+
+## Section 6 — Adding Columns
+
+New columns can be added to a data frame.
+
+```{r}
+mutations$gene_length <- nchar(mutations$gene)
+
+mutations
+```
+
+### Exercises
+
+11. Add a column with mutation string length.
+12. Add a column indicating whether the gene is KRAS.
+
+---
+
+## Section 7 — Ordering Data
+
+Rows can be sorted.
+
+```{r}
+mutations[order(mutations$gene), ]
+```
+
+### Exercises
+
+13. Sort rows by patient.
+14. Sort rows by mutation.
+
+---
+
+## Section 8 — Unique Values
+
+Identify unique values in a column.
+
+```{r}
+unique(mutations$gene)
+```
+
+### Exercises
+
+15. Find unique patients.
+16. Count how many unique genes appear.
+
+---
+
+## Section 9 — Basic Aggregation
+
+Aggregate functions summarize data by groups.
+
+```{r}
+aggregate(patient ~ gene, data = mutations, FUN = length)
+```
+
+### Exercises
+
+17. Count mutations per gene using `aggregate()`.
+18. Compute the number of mutations per patient.
+
+---
+
+## Section 10 — Mini Bioinformatics Dataset
+
+Create a small dataset representing gene expression values.
+
+```{r}
+expression <- data.frame(
+  gene = c("TP53", "KRAS", "BRAF", "EGFR"),
+  sample1 = c(10, 50, 30, 40),
+  sample2 = c(12, 60, 35, 42)
+)
+
+expression
+```
+
+### Exercises
+
+19. Print the expression matrix.
+20. Extract expression values for KRAS.
+
+---
+
+## Section 11 — Mini Analysis
+
+Compute the average expression per gene.
+
+```{r}
+expression$mean_expression <- rowMeans(expression[,2:3])
+
+expression
+```
+
+### Exercises
+
+21. Compute mean expression per gene.
+22. Identify the gene with the highest expression.
+
+---
+
+## Section 12 — Simple Data Exploration
+
+Inspect the structure of a dataset.
+
+```{r}
+str(mutations)
+summary(mutations)
+```
+
+### Exercises
+
+23. Inspect the structure of the expression dataset.
+24. Print summary statistics.
+
+---
+
+## Final Exercise
+
+25. Build a small analysis that:
+
+- counts mutations per gene
+- sorts the results
+- prints the most frequently mutated gene
+
+---
+
+## Skills Gained After Notebook 2
+
+You should now understand:
+
+- how to create data frames
+- column and row indexing
+- filtering rows with logical conditions
+- counting categorical data
+- adding columns
+- sorting rows
+- summarizing tabular datasets
+
+---
+
+## Next Step
+
+Notebook 3 will introduce the **tidyverse workflow**, including:
+
+- `dplyr`
+- pipes
+- grouped summaries
+- cleaner data manipulation
