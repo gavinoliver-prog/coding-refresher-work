@@ -1,0 +1,229 @@
+---
+title: "Notebook 5 — Statistics and Modeling in R for Bioinformatics"
+format: html
+editor: visual
+---
+
+# Goal
+
+Introduce basic **statistical modeling workflows in R** using small biological datasets.
+
+This notebook covers:
+
+- linear models
+- logistic regression
+- principal component analysis (PCA)
+- clustering
+
+These tools form the foundation of many statistical analyses in computational biology.
+
+---
+
+## Section 1 — Example Dataset
+
+```{r}
+dataset <- data.frame(
+  sample = paste0("S",1:10),
+  gc_content = c(0.40,0.55,0.62,0.35,0.70,0.48,0.66,0.30,0.59,0.45),
+  length = c(100,120,150,90,180,110,160,80,140,105),
+  motif_count = c(1,3,4,0,5,2,4,0,3,1),
+  responder = c(0,1,1,0,1,0,1,0,1,0)
+)
+
+dataset
+```
+
+### Exercises
+
+1. Print the dataset.
+2. Count the number of samples.
+
+---
+
+## Section 2 — Linear Models
+
+Linear models estimate relationships between variables.
+
+```{r}
+model <- lm(length ~ gc_content, data = dataset)
+
+summary(model)
+```
+
+### Exercises
+
+3. Fit a linear model predicting length from motif_count.
+4. Interpret the slope coefficient.
+
+---
+
+## Section 3 — Logistic Regression
+
+Logistic regression predicts binary outcomes.
+
+```{r}
+log_model <- glm(responder ~ gc_content + motif_count,
+                 data = dataset,
+                 family = binomial)
+
+summary(log_model)
+```
+
+### Exercises
+
+5. Identify which predictors influence response.
+6. Interpret the sign of coefficients.
+
+---
+
+## Section 4 — Model Predictions
+
+```{r}
+dataset$predicted_prob <- predict(log_model, type = "response")
+
+dataset
+```
+
+### Exercises
+
+7. Print predicted probabilities.
+8. Identify samples with probability > 0.5.
+
+---
+
+## Section 5 — Principal Component Analysis
+
+PCA reduces dimensionality of data.
+
+```{r}
+pca <- prcomp(dataset[,2:4], scale = TRUE)
+
+summary(pca)
+```
+
+### Exercises
+
+9. Inspect variance explained by PC1 and PC2.
+10. Identify which variables contribute most.
+
+---
+
+## Section 6 — PCA Visualization
+
+```{r}
+pca_scores <- data.frame(pca$x)
+
+pca_scores
+```
+
+### Exercises
+
+11. Inspect the PCA coordinates.
+12. Identify samples with similar profiles.
+
+---
+
+## Section 7 — Clustering
+
+K-means clustering groups samples based on features.
+
+```{r}
+clusters <- kmeans(dataset[,2:4], centers = 2)
+
+clusters$cluster
+```
+
+```{r}
+dataset$cluster <- clusters$cluster
+
+dataset
+```
+
+### Exercises
+
+13. Count samples per cluster.
+14. Compare clusters with responder status.
+
+---
+
+## Section 8 — Exploring Clusters
+
+```{r}
+table(dataset$cluster)
+```
+
+### Exercises
+
+15. Determine which cluster has more responders.
+16. Compare mean GC content per cluster.
+
+---
+
+## Section 9 — Model Comparison
+
+```{r}
+model1 <- lm(length ~ gc_content, data = dataset)
+model2 <- lm(length ~ gc_content + motif_count, data = dataset)
+
+anova(model1, model2)
+```
+
+### Exercises
+
+17. Compare models.
+18. Determine which explains more variance.
+
+---
+
+## Section 10 — Small Analysis Pipeline
+
+```{r}
+analysis <- dataset |>
+  transform(mean_feature = (gc_content + motif_count)/2)
+
+analysis
+```
+
+### Exercises
+
+19. Add a new feature column.
+20. Use it in a regression model.
+
+---
+
+## Final Exercise
+
+21–25. Build a small analysis workflow that:
+
+- fits a logistic regression model
+- generates predicted probabilities
+- runs PCA
+- performs clustering
+- compares clusters with responder status
+
+---
+
+## Skills Gained After Notebook 5
+
+You should now understand:
+
+- linear models (`lm`)
+- logistic regression (`glm`)
+- interpreting model summaries
+- dimensionality reduction with PCA
+- clustering with k-means
+- building simple statistical analysis workflows
+
+---
+
+## Completion
+
+You have now completed the **five-part R programming and analysis series**:
+
+1. R reboot
+2. structured data manipulation
+3. tidyverse workflows
+4. visualization with ggplot2
+5. statistics and modeling
+
+Together these notebooks provide a practical foundation for **data analysis and statistical workflows in computational biology**.
