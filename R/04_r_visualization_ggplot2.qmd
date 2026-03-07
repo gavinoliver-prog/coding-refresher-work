@@ -1,0 +1,245 @@
+---
+title: "Notebook 4 — Visualization with ggplot2 for Bioinformatics"
+format: html
+editor: visual
+---
+
+# Goal
+
+Learn how to create clear and informative visualizations for biological datasets using **ggplot2**.
+
+This notebook introduces the **grammar of graphics** approach used by ggplot2, which builds plots in layers.
+
+---
+
+## Section 1 — Load Libraries
+
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+---
+
+## Section 2 — Example Mutation Dataset
+
+```{r}
+mutations <- data.frame(
+  patient = c("P1","P2","P3","P4","P5","P6"),
+  gene = c("TP53","KRAS","TP53","BRAF","KRAS","TP53"),
+  mutation = c("R273H","G12D","R175H","V600E","G12V","R248Q")
+)
+
+mutations
+```
+
+### Exercises
+
+1. Print the dataset.
+2. Count mutations per gene.
+
+---
+
+## Section 3 — Basic Bar Plot
+
+Bar plots are useful for visualizing categorical counts.
+
+```{r}
+ggplot(mutations, aes(x = gene)) +
+  geom_bar()
+```
+
+### Exercises
+
+3. Create a bar plot of mutation counts by gene.
+4. Try reordering the genes using `arrange()` before plotting.
+
+---
+
+## Section 4 — Counting with dplyr then Plotting
+
+```{r}
+gene_counts <- mutations |>
+  count(gene)
+
+gene_counts
+```
+
+```{r}
+ggplot(gene_counts, aes(x = gene, y = n)) +
+  geom_col()
+```
+
+### Exercises
+
+5. Plot mutation counts per gene.
+6. Sort the dataset before plotting.
+
+---
+
+## Section 5 — Scatter Plot Example
+
+Example dataset representing biological features.
+
+```{r}
+features <- data.frame(
+  sample = paste0("S",1:8),
+  gc_content = c(0.40,0.55,0.62,0.35,0.70,0.48,0.66,0.30),
+  length = c(100,120,150,90,180,110,160,80)
+)
+
+features
+```
+
+```{r}
+ggplot(features, aes(x = gc_content, y = length)) +
+  geom_point()
+```
+
+### Exercises
+
+7. Plot GC content vs sequence length.
+8. Identify any visible patterns.
+
+---
+
+## Section 6 — Boxplots
+
+Boxplots help visualize distributions.
+
+```{r}
+features$group <- c("A","A","A","A","B","B","B","B")
+
+ggplot(features, aes(x = group, y = length)) +
+  geom_boxplot()
+```
+
+### Exercises
+
+9. Plot sequence length distributions by group.
+10. Compare the median values visually.
+
+---
+
+## Section 7 — Adding Labels
+
+```{r}
+ggplot(features, aes(x = gc_content, y = length)) +
+  geom_point() +
+  labs(
+    title = "GC Content vs Sequence Length",
+    x = "GC Content",
+    y = "Sequence Length"
+  )
+```
+
+### Exercises
+
+11. Add a plot title.
+12. Change axis labels.
+
+---
+
+## Section 8 — Faceting
+
+Faceting creates multiple panels based on a categorical variable.
+
+```{r}
+ggplot(features, aes(x = gc_content, y = length)) +
+  geom_point() +
+  facet_wrap(~group)
+```
+
+### Exercises
+
+13. Create separate panels by group.
+14. Compare patterns across groups.
+
+---
+
+## Section 9 — Themes
+
+Themes change plot appearance.
+
+```{r}
+ggplot(features, aes(x = gc_content, y = length)) +
+  geom_point() +
+  theme_minimal()
+```
+
+### Exercises
+
+15. Try `theme_bw()`.
+16. Compare visual styles.
+
+---
+
+## Section 10 — Visualizing Expression Data
+
+```{r}
+expression <- data.frame(
+  gene = c("TP53","KRAS","BRAF","EGFR"),
+  expression = c(10,50,30,40)
+)
+
+ggplot(expression, aes(x = gene, y = expression)) +
+  geom_col()
+```
+
+### Exercises
+
+17. Plot gene expression values.
+18. Identify the highest expressed gene.
+
+---
+
+## Section 11 — Combining dplyr and ggplot
+
+```{r}
+mutations |>
+  count(gene) |>
+  ggplot(aes(x = gene, y = n)) +
+  geom_col()
+```
+
+### Exercises
+
+19. Create a pipeline that counts mutations and plots them.
+20. Sort the plot by mutation frequency.
+
+---
+
+## Final Exercise
+
+21–25. Build a visualization workflow that:
+
+- summarizes a dataset
+- creates at least two plots
+- compares two biological variables
+- labels the plots clearly
+- uses a clean theme
+
+---
+
+## Skills Gained After Notebook 4
+
+You should now understand:
+
+- how ggplot2 builds plots in layers
+- bar plots for categorical data
+- scatter plots for relationships
+- boxplots for distributions
+- faceting for grouped comparisons
+- labeling and themes
+- integrating `dplyr` pipelines with plotting
+
+---
+
+## Next Step
+
+Notebook 5 will introduce **statistical analysis and modeling in R**, including:
+
+- linear models
+- logistic regression
+- PCA
+- clustering
