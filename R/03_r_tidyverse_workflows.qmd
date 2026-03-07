@@ -1,0 +1,231 @@
+---
+title: "Notebook 3 — Tidyverse Workflows for Bioinformatics"
+format: html
+editor: visual
+---
+
+# Goal
+
+Introduce the **tidyverse workflow** for analyzing biological datasets in R.
+This notebook focuses on `dplyr`, the pipe operator, and grouped summaries.
+
+The tidyverse provides a powerful and readable way to manipulate tabular data.
+
+---
+
+## Section 1 — Loading the Tidyverse
+
+```{r}
+library(dplyr)
+```
+
+The **pipe operator** (`|>`) allows us to write data transformations in a readable sequence.
+
+---
+
+## Section 2 — Example Mutation Dataset
+
+```{r}
+mutations <- data.frame(
+  patient = c("P1","P2","P3","P4","P5","P6"),
+  gene = c("TP53","KRAS","TP53","BRAF","KRAS","TP53"),
+  mutation = c("R273H","G12D","R175H","V600E","G12V","R248Q")
+)
+
+mutations
+```
+
+### Exercises
+
+1. Print the dataset.
+2. Count the number of rows.
+
+---
+
+## Section 3 — Selecting Columns
+
+```{r}
+mutations |> select(gene, mutation)
+```
+
+### Exercises
+
+3. Select only the patient column.
+4. Select both patient and gene columns.
+
+---
+
+## Section 4 — Filtering Rows
+
+```{r}
+mutations |> filter(gene == "KRAS")
+```
+
+### Exercises
+
+5. Filter rows where gene is TP53.
+6. Filter rows where patient is P1 or P2.
+
+---
+
+## Section 5 — Creating New Columns
+
+```{r}
+mutations |> 
+  mutate(gene_length = nchar(gene))
+```
+
+### Exercises
+
+7. Create a column storing mutation string length.
+8. Create a column indicating whether gene == "KRAS".
+
+---
+
+## Section 6 — Counting Observations
+
+```{r}
+mutations |> count(gene)
+```
+
+### Exercises
+
+9. Count mutations per gene.
+10. Count mutations per patient.
+
+---
+
+## Section 7 — Grouped Summaries
+
+```{r}
+mutations |>
+  group_by(gene) |>
+  summarise(count = n())
+```
+
+### Exercises
+
+11. Count mutations per gene.
+12. Count mutations per patient.
+
+---
+
+## Section 8 — Sorting Results
+
+```{r}
+mutations |>
+  count(gene) |>
+  arrange(desc(n))
+```
+
+### Exercises
+
+13. Sort genes by mutation frequency.
+14. Identify the most frequently mutated gene.
+
+---
+
+## Section 9 — Example Expression Dataset
+
+```{r}
+expression <- data.frame(
+  gene = c("TP53","KRAS","BRAF","EGFR"),
+  sample1 = c(10,50,30,40),
+  sample2 = c(12,60,35,42),
+  sample3 = c(11,55,32,39)
+)
+
+expression
+```
+
+### Exercises
+
+15. Print the dataset.
+16. Extract the KRAS row.
+
+---
+
+## Section 10 — Row-wise Summaries
+
+```{r}
+expression |> 
+  mutate(mean_expression = rowMeans(across(sample1:sample3)))
+```
+
+### Exercises
+
+17. Compute mean expression per gene.
+18. Identify the gene with the highest expression.
+
+---
+
+## Section 11 — Pivoting Data
+
+Reshaping data is common in bioinformatics workflows.
+
+```{r}
+library(tidyr)
+
+expression_long <- expression |>
+  pivot_longer(cols = sample1:sample3,
+               names_to = "sample",
+               values_to = "expression")
+
+expression_long
+```
+
+### Exercises
+
+19. Inspect the long format dataset.
+20. Count rows in the long dataset.
+
+---
+
+## Section 12 — Grouped Analysis on Long Data
+
+```{r}
+expression_long |>
+  group_by(gene) |>
+  summarise(mean_expression = mean(expression))
+```
+
+### Exercises
+
+21. Compute mean expression per gene.
+22. Compute mean expression per sample.
+
+---
+
+## Final Exercise
+
+23–25. Build a small analysis pipeline that:
+
+- reshapes the expression dataset
+- computes mean expression per gene
+- sorts genes by expression level
+
+---
+
+## Skills Gained After Notebook 3
+
+You should now understand:
+
+- the tidyverse workflow
+- pipes (`|>`)
+- `select()`
+- `filter()`
+- `mutate()`
+- `count()`
+- `group_by()` and `summarise()`
+- reshaping data with `pivot_longer()`
+
+---
+
+## Next Step
+
+Notebook 4 will introduce **visualization using ggplot2**, including:
+
+- bar plots
+- scatter plots
+- boxplots
+- faceting
