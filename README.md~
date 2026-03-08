@@ -76,66 +76,12 @@ Introduces the core machine learning workflow using `scikit-learn`:
 
 ---
 
-## R Training Notebooks
+## Future Additions
 
-A parallel set of Quarto notebooks provides a structured refresher in R for data analysis and statistical workflows commonly used in computational biology.
+This repository will expand to include additional training materials, including:
 
-### Notebook 1 — R Reboot for Bioinformatics
+- **R notebooks for statistical computing and bioinformatics**
+- additional machine learning and AI workflows
+- practical examples using real biological datasets
 
-Introduces core R concepts including:
-
-- variables and assignment
-- strings and indexing
-- vectors and vectorized operations
-- functions
-- lists
-- simple data frames
-
----
-
-### Notebook 2 — Data Frames and Structured Data
-
-Focuses on working with tabular biological datasets using base R:
-
-- creating data frames
-- column and row indexing
-- filtering rows with logical conditions
-- counting categorical variables
-- adding new columns
-- basic aggregation
-
----
-
-### Notebook 3 — Tidyverse Workflows
-
-Introduces the modern R data analysis ecosystem using `dplyr`:
-
-- pipes (`|>`)
-- `select()`, `filter()`, and `mutate()`
-- grouped summaries with `group_by()` and `summarise()`
-- reshaping data with `pivot_longer()`
-
----
-
-### Notebook 4 — Visualization with ggplot2
-
-Covers the grammar-of-graphics approach to visualization:
-
-- bar plots for categorical data
-- scatter plots for biological features
-- boxplots for distributions
-- faceting
-- themes and labeling
-- integrating `dplyr` pipelines with plotting
-
----
-
-### Notebook 5 — Statistics and Modeling
-
-Introduces common statistical workflows in R:
-
-- linear models (`lm`)
-- logistic regression (`glm`)
-- principal component analysis (PCA)
-- clustering with k-means
-- interpreting model outputs
+The long-term goal is to maintain a compact set of **practical training materials for computational biology programming and analysis**.
