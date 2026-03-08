@@ -4,11 +4,19 @@
 # Editor backups
 *~
 
-# Python
+# Python environments
+.venv/
+venv/
+env/
+
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Jupyter
 .ipynb_checkpoints/
-python/.venv/
 
 # R
 .Rhistory
@@ -18,3 +26,6 @@ r/renv/library/
 
 # Quarto
 .quarto/
+
+# Logs
+*.log
