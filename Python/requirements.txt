@@ -1,0 +1,15 @@
+# Notebook environment
+jupyter
+notebook
+ipykernel
+
+# Core Python
+numpy
+pandas
+matplotlib
+seaborn
+
+# Utilities commonly used in basic notebooks
+scipy
+scikit-learn
+tqdm
