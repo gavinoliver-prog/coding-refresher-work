@@ -1,12 +1,20 @@
+# macOS
+.DS_Store
+
+# Editor backups
+*~
+
 # Python
 __pycache__/
 *.pyc
-
-# Jupyter
 .ipynb_checkpoints/
+python/.venv/
 
-# editor backups
-*~
+# R
+.Rhistory
+.RData
+.Ruserdata
+r/renv/library/
 
-# macOS
-.DS_Store
+# Quarto
+.quarto/
