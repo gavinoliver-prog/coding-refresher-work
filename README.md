@@ -11,6 +11,32 @@ The goal is to provide a structured path from **basic scripting → reproducible
 
 ---
 
+## Python Environment Setup
+
+The Python notebooks use a virtual environment managed with **uv** and dependencies listed in `python/requirements.txt`.
+
+```bash
+cd python
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+jupyter notebook
+```
+
+To set up the R environment, open R from the `r/` directory and run:
+
+```r
+install.packages("renv")
+renv::restore()
+```
+
+R notebooks are written in **Quarto (`.qmd`) format**, so Quarto must also be installed:
+
+https://quarto.org/docs/get-started/
+
+---
+
+
 ## Python Training Notebooks
 
 The current notebooks focus on rebuilding Python fluency and applying it to common bioinformatics problems.
