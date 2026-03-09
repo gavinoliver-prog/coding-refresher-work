@@ -1,4 +1,4 @@
-# coding-refresher-work
+# python-r-coding-drills-for-the-rusty
 
 I created this repo to provide a structured short series  notebooks to help retain or retrain basic coding muscle memory in both R and Python.
 
