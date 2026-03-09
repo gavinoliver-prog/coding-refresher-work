@@ -1,13 +1,10 @@
 # coding-refresher-work
-General repo for coding refreshers  / muscle memory building
 
-More management = less time to code & more time to forget.  
-
-This is a basic repo to house scripts or notebooks to help retain or retrain basic coding muscle memory.
+I created this repo to provide a structured short series  notebooks to help retain or retrain basic coding muscle memory in both R and Python.
 
 The repository contains a collection of progressive notebooks designed to refresh and rebuild practical programming skills for computational biology and bioinformatics workflows. The materials are organized as hands-on exercises that move from language fundamentals to data analysis and basic machine learning concepts using small biological examples.
 
-The goal is to provide a structured path from **basic scripting → reproducible analysis → introductory machine learning workflows**, with examples grounded in typical bioinformatics tasks.
+The goal is to provide a structured path from **basic scripting through reproducible analysis and introductory machine learning workflows**, with examples grounded in typical/classical bioinformatics tasks.
 
 ---
 
@@ -39,7 +36,7 @@ https://quarto.org/docs/get-started/
 
 ## Python Training Notebooks
 
-The current notebooks focus on rebuilding Python fluency and applying it to common bioinformatics problems.
+The current notebooks focus on rebuilding Python fluency and applying it to common classical bioinformatics problems.
 
 ### Notebook 1 — Python Reboot for Bioinformatics
 
